@@ -136,6 +136,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 					}
 					beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(propertyName, map));
 				}
+				else if (ele.getTagName().equals("list")){
+					//TODO 支持list解析
+				}
 			}
 		}
 	}
