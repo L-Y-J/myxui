@@ -2,6 +2,7 @@ package xui.component;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +38,11 @@ public class XUIJFrame extends JFrame {
 
 	String xuiTitle;
 	String xuiClose;
-	Map<String, String> xuiLocation;
+	float test1;
+	Float test2;
+	String test3;
+//	Map<String, String> xuiLocation;
+	List<String> xuiLocation;
 	Map<String, String> xuiSize;
 	LayoutManager layout;
 }

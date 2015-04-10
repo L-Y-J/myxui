@@ -13,12 +13,11 @@ import tinyioc.beans.io.ResourceLoader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-/**
- * @author yihua.huang@dianping.com
- */
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	public XmlBeanDefinitionReader(ResourceLoader resourceLoader) {
@@ -59,6 +58,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * 解析bean节点
+	 *
 	 * @param ele bean节点
 	 */
 	protected void processBeanDefinition(Element ele) {
@@ -72,7 +72,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * 解析property节点
-	 * @param ele property节点
+	 *
+	 * @param ele            property节点
 	 * @param beanDefinition 保存节点信息
 	 */
 	private void processProperty(Element ele, BeanDefinition beanDefinition) {
@@ -86,12 +87,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 				String ref = propertyEle.getAttribute("ref");
 				if (value != null && value.length() > 0) {
 					beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
-				}
-				else if (ref != null && ref.length() > 0){
+				} else if (ref != null && ref.length() > 0) {
 					BeanReference beanReference = new BeanReference(ref);
 					beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, beanReference));
-				}
-				else
+				} else
 					proccessPropertyChilds(propertyEle, beanDefinition);
 			}
 		}
@@ -99,45 +98,58 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * 解析property的孩子节点，例如List，Map等
-	 * @param element property节点
+	 *
+	 * @param element        property节点
 	 * @param beanDefinition 保存节点信息
 	 */
 	private void proccessPropertyChilds(Element element, BeanDefinition beanDefinition) {
 		NodeList nodeList = element.getChildNodes();         // 第一群孩子
 		String propertyName = element.getAttribute("name");
 		if (nodeList == null || nodeList.getLength() < 1)
-			throw new IllegalArgumentException("configuration file error(property node have no child)");
-		for (int i = 0; i < nodeList.getLength(); i++){       // 进入property孩子节点
+			throw new IllegalArgumentException("xml配置文件错误，property节点："+propertyName+"没有值");
+		for (int i = 0; i < nodeList.getLength(); i++) {       // 进入property孩子节点
 			Node node = nodeList.item(i);
-			if (node instanceof Element){
+			if (node instanceof Element) {
 				Element ele = (Element) node;
-				if (ele.getTagName().equals("map")){          // 进入map节点
+				if (ele.getTagName().equals("map")) {          // 进入map节点
 					NodeList entryNodes = ele.getChildNodes();       // 第二群孩子
 					if (entryNodes == null || entryNodes.getLength() < 1)
-						throw new IllegalArgumentException("configuration file error(map node have no child)");
+						throw new IllegalArgumentException("xml配置文件错误，map节点没有值");
 					Map map = new HashMap();
-					for (int j = 0; j<entryNodes.getLength(); j++){   // 进入entry节点
+					for (int j = 0; j < entryNodes.getLength(); j++) {   // 进入entry节点
 						Node entryNode = entryNodes.item(j);
-						if (entryNode instanceof Element){
+						if (entryNode instanceof Element) {
 							Element entryEle = (Element) entryNode;
-							NodeList valueNodes = entryEle.getChildNodes();    // 第三群孩子
-							if (valueNodes == null || valueNodes.getLength() < 1)
-								throw new IllegalArgumentException("configuration file error(entry node have no child)");
-							for (int k = 0; k < valueNodes.getLength(); k++){       // 进入value节点
-								Node valueNode = valueNodes.item(k);
-								if (valueNode instanceof Element){
-									Element valueEle = (Element) valueNode;
-									String key = entryEle.getAttribute("key");
-									String value = valueEle.getFirstChild().getNodeValue();
-									map.put(key, value);
-								}
+							String key = entryEle.getAttribute("key");
+							String value = entryEle.getAttribute("value");
+							Object obj = value;
+							if (value == null) {
+								value = entryEle.getAttribute("value-ref");
+								obj = new BeanReference(value);
 							}
+							map.put(key, obj);
 						}
 					}
 					beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(propertyName, map));
-				}
-				else if (ele.getTagName().equals("list")){
-					//TODO 支持list解析
+				} else if (ele.getTagName().equals("list")) {       //进入list节点
+					NodeList valueList = ele.getChildNodes();
+					if (valueList == null || valueList.getLength() < 1)
+						throw new IllegalArgumentException("xml配置文件错误，list节点没有值");
+					List list = new ArrayList();
+					for (int j = 0; j < valueList.getLength(); j++) {
+						Node valueNode = valueList.item(j);
+						if (valueNode instanceof Element) {
+							Element valueEle = (Element) valueNode;
+							if (valueEle.getTagName().equals("value")){
+								list.add(valueEle.getTextContent());
+							}
+							if (valueEle.getTagName().equals("ref")) {
+								list.add(new BeanReference(valueEle.getAttribute("bean")));
+							}
+						}
+					}
+					beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(propertyName, list));
+
 				}
 			}
 		}

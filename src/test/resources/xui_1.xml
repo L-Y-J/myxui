@@ -1,46 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans">
 
-    <bean name="xuiJFrame" class="xui.component.XUIJFrame">
-        <property name="xuiTitle" value="测试" />
-        <property name="xuiLocation">
+    <bean name="layout" class="java.awt.BorderLayout">
+        <property name="hgap" value="10" />
+        <property name="vgap" value="10" />
+    </bean>
+
+    <bean name="layout1" class="java.awt.FlowLayout">
+        <property name="hgap" value="30" />
+        <property name="vgap" value="20" />
+    </bean>
+
+    <bean name="jframe1" class="javax.swing.JFrame">
+        <property name="title" value="测试" />
+    </bean>
+
+    <bean name="jframe2" class="javax.swing.JFrame">
+        <property name="title" value="测试" />
+        <property name="location">
             <list>
                 <value>200</value>
                 <value>200</value>
             </list>
-            <!--<map>
-                <entry key="x">
-                    <value>200</value>
-                </entry>
-                <entry key="y">
-                    <value>200</value>
-                </entry>
-            </map>-->
         </property>
-        <property name="xuiSize">
-            <map>
-                <entry key="x">
-                    <value>200</value>
-                </entry>
-                <entry key="y">
-                    <value>200</value>
-                </entry>
-            </map>
+        <property name="size">
+            <list>
+                <value>300</value>
+                <value>300</value>
+            </list>
         </property>
-        <property name="xuiClose" value="EXIT_ON_CLOSE" />
-        <property name="layout" ref="layout" />
+        <property name="defaultCloseOperation" value="3" />
+        <property name="layout" ref="layout1" />
+        <property name="JMenuBar" ref="jMenuBar" />
     </bean>
 
-    <bean name="layout" class="java.awt.BorderLayout">
-        <property name="hgap" value="10" />
-        <property name="vgap" value="20" />
+    <bean name="jMenuBar" class="javax.swing.JMenuBar">
     </bean>
-
 </beans>
