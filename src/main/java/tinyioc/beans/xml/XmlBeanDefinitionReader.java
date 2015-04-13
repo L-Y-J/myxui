@@ -13,10 +13,7 @@ import tinyioc.beans.io.ResourceLoader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
@@ -115,7 +112,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 					NodeList entryNodes = ele.getChildNodes();       // 第二群孩子
 					if (entryNodes == null || entryNodes.getLength() < 1)
 						throw new IllegalArgumentException("xml配置文件错误，map节点没有值");
-					Map map = new HashMap();
+					Map map = new LinkedHashMap();
 					for (int j = 0; j < entryNodes.getLength(); j++) {   // 进入entry节点
 						Node entryNode = entryNodes.item(j);
 						if (entryNode instanceof Element) {
@@ -123,7 +120,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 							String key = entryEle.getAttribute("key");
 							String value = entryEle.getAttribute("value");
 							Object obj = value;
-							if (value == null) {
+							if (value == null || value.trim().equals("")) {
 								value = entryEle.getAttribute("value-ref");
 								obj = new BeanReference(value);
 							}

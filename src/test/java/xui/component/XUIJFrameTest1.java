@@ -5,20 +5,25 @@ import tinyioc.context.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Method;
 
 /**
  * Created by yongjie on 15-4-3.
  */
 public class XUIJFrameTest1 {
 
-	private static void print(Object o) {
-		System.out.println(o);
+	private static void print(Object... o) {
+		for (Object o1 : o) {
+			System.out.println(o1.toString());
+		}
+
 	}
 
 	public static void test() throws Exception {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("xui_1.xml");
-		JFrame jframe1 = (JFrame) applicationContext.getBean("jframe1");
-		jframe1.setVisible(true);
+		JFrame jFrame = new JFrame();
+		Method method = jFrame.getClass().getMethod("setLocation", new Class[]{int.class, int.class});
+		method.invoke(jFrame, new Object[]{new Integer(200), new Integer(200)});
+		jFrame.setVisible(true);
 	}
 
 
@@ -28,6 +33,10 @@ public class XUIJFrameTest1 {
 		jframe2.add(new Button("1"));
 		jframe2.add(new Button("2"));
 		jframe2.setVisible(true);
+		print(jframe2.getJMenuBar());
+		print(jframe2.getJMenuBar().getMenuCount());
+		print(jframe2.getJMenuBar().getMenu(0));
+		print(jframe2.getJMenuBar().getMenu(0).getName());
 	}
 
 	public static void main(String[] args) throws Exception {

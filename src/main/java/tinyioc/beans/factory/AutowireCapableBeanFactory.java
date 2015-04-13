@@ -6,7 +6,10 @@ import tinyioc.beans.PropertyValue;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 可自动装配内容的BeanFactory
@@ -72,59 +75,111 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 
 
 	protected void applyPropertyValuesByMethod(Object bean, PropertyValue propertyValue) throws Exception {
-		String methodName = "set" + firstCharUp(propertyValue.getName().toLowerCase());
+		String methodName = "set" + propertyValue.getName().toLowerCase();
 		Object value = propertyValue.getValue();
-		if (value instanceof BeanReference) {
-			BeanReference beanReference = (BeanReference) value;
-			value = getBean(beanReference.getName());
-		}
 		Method[] methods = bean.getClass().getMethods();
 		for (int i = 0; i < methods.length; i++) {
-			if (methods[i].getName().equals(methodName)) {
+			if (methods[i].getName().toLowerCase().equals(methodName)) {
 				Class<?>[] parameterTypes = methods[i].getParameterTypes();
-				try {
-					if (parameterTypes.length == 1) {
-						methods[i].invoke(bean, value);
-					} else {
-						List temp = (List) value;
-						Object[] args = temp.toArray();
-						castArgsType(args, parameterTypes);
-						methods[i].invoke(bean, args);
-					}
-					break;
-				} catch (IllegalArgumentException e) {
+				Object args = castArgsType(value, parameterTypes);
+				if (args == null)
 					continue;
+				if (args instanceof List){
+					Object[] argList = new Object[((List) args).size()];
+					for (int j = 0; j < argList.length; j++) {
+						argList[j] = ((List) args).get(j);
+					}
+					methods[i].invoke(bean, argList);
+					break;
 				}
+				methods[i].invoke(bean, args);
+				break;
 			}
 		}
 	}
 
-	private String firstCharUp(String s) {
-		char[] chars = s.toCharArray();
-		char temp = chars[0];
-		if (temp >= 65 && temp <= 90)
-			return s;
-		chars[0] = (char) (temp - ('a' - 'A'));
-		return new String(chars);
+	private Object castArgsType(Object value, Class[] parameterTypes) throws Exception {
+		if (value instanceof BeanReference){
+			BeanReference beanReference = (BeanReference) value;
+			return castArgsType(getBean(beanReference.getName()), parameterTypes);
+		}
+		else if (value instanceof List){
+			List argsList = (List) value;
+			if (argsList.size() != parameterTypes.length)
+				return null;
+			return castListArgs(argsList, parameterTypes);
+		}
+		else if (value instanceof Map){
+			LinkedHashMap argsMap = (LinkedHashMap) value;
+			return castMapArgs(argsMap);
+		}
+		else {
+			if (parameterTypes.length != 1)
+				return null;
+			String className = parameterTypes[0].getName();
+			Object args = null;
+			args = castOneArgs(value, className);
+			return args;
+		}
 	}
 
-	private void castArgsType(Object[] args, Class[] parameterTypes){
-		if (args.length != parameterTypes.length)
-			throw new IllegalArgumentException();
-		for (int i = 0; i < parameterTypes.length; i++) {
-			String className = parameterTypes[i].getName();
-			if (className.equals("int") || className.equals("java.lang.Integer"))
-				args[i] = Integer.parseInt(args[i].toString());
-			else if (className.equals("long") || className.equals("java.lang.Long"))
-				args[i] = Long.parseLong(args[i].toString());
-			else if (className.equals("float") || className.equals("java.lang.Float"))
-				args[i] = Float.parseFloat(args[i].toString());
-			else if (className.equals("double") || className.equals("java.lang.Double"))
-				args[i] = Double.parseDouble(args[i].toString());
-			else if (className.equals("char") || className.equals("java.lang.Character"))
-				args[i] = args[i].toString().toCharArray()[0];
-			else if (className.equals("boolean") || className.equals("java.lang.Boolean"))
-				args[i] = args[i].toString().equals("true") ? true : false;
+	private LinkedHashMap castMapArgs(LinkedHashMap argsMap) throws Exception {
+		for (Iterator iterator = argsMap.keySet().iterator(); iterator.hasNext(); ) {
+			Object key = iterator.next();
+			Object value = argsMap.get(key);
+			if (value instanceof BeanReference){
+				Object o = getBean(((BeanReference) value).getName());
+				argsMap.put(key, o);
+			}
 		}
+		return argsMap;
+	}
+
+	private List castListArgs(List argsList, Class[] parameterTypes) throws Exception {
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (argsList.get(i) instanceof BeanReference){
+				BeanReference beanReference = (BeanReference) argsList.get(i);
+				argsList.set(i, getBean(beanReference.getName()));
+			}
+			else if (argsList.get(i) instanceof List) {
+				argsList.set(i, (List)argsList.get(i));
+			}
+			else{
+				Object args = castOneArgs(argsList.get(i), parameterTypes[0].getName());
+				argsList.set(i, args);
+			}
+		}
+		return argsList;
+	}
+
+	private Object castOneArgs(Object value, String className) {
+		Object args = null;
+		if (className.equals("int") || className.equals("java.lang.Integer"))
+			args = Integer.parseInt(value.toString());
+		else if (className.equals("long") || className.equals("java.lang.Long"))
+			args = Long.parseLong(value.toString());
+		else if (className.equals("float") || className.equals("java.lang.Float"))
+			args = Float.parseFloat(value.toString());
+		else if (className.equals("double") || className.equals("java.lang.Double"))
+			args = Double.parseDouble(value.toString());
+		else if (className.equals("char") || className.equals("java.lang.Character"))
+			args = value.toString().toCharArray()[0];
+		else if (className.equals("boolean") || className.equals("java.lang.Boolean"))
+			args = value.toString().equals("true") ? true : false;
+		else if (className.equals("int") || className.equals("java.lang.Integer"))
+			args = Integer.parseInt(value.toString());
+		else if (className.equals("long") || className.equals("java.lang.Long"))
+			args = Long.parseLong(value.toString());
+		else if (className.equals("float") || className.equals("java.lang.Float"))
+			args = Float.parseFloat(value.toString());
+		else if (className.equals("double") || className.equals("java.lang.Double"))
+			args = Double.parseDouble(value.toString());
+		else if (className.equals("char") || className.equals("java.lang.Character"))
+			args = value.toString().toCharArray()[0];
+		else if (className.equals("boolean") || className.equals("java.lang.Boolean"))
+			args = value.toString().equals("true") ? true : false;
+		else
+			args = value;
+		return args;
 	}
 }
