@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans">
 
-    <bean name="layout" class="java.awt.BorderLayout">
-        <property name="hgap" value="10" />
-        <property name="vgap" value="10" />
-    </bean>
-
     <bean name="layout1" class="java.awt.FlowLayout">
         <property name="hgap" value="30" />
         <property name="vgap" value="20" />
     </bean>
 
-    <bean name="jframe1" class="javax.swing.JFrame">
-        <property name="title" value="测试" />
+    <bean name="layout2" class="java.awt.BorderLayout">
+        <property name="hgap" value="30" />
+        <property name="vgap" value="20" />
     </bean>
 
-    <bean name="jframe2" class="javax.swing.JFrame">
+    <bean name="jframe2" class="xui.component.XUIJFrame">
         <property name="title" value="测试" />
         <property name="location">
             <list>
@@ -30,8 +26,26 @@
             </list>
         </property>
         <property name="defaultCloseOperation" value="3" />
-        <property name="layout" ref="layout1" />
+        <property name="layout" ref="layout2" />
+        <property name="component">
+            <map>
+                <entry key="WEST" value-ref="button1"></entry>
+                <entry key="CENTER" value-ref="panel"></entry>
+            </map>
+        </property>
         <property name="JMenuBar" ref="jMenuBar" />
+    </bean>
+
+    <bean name="panel" class="javax.swing.JPanel">
+        <property name="layout" ref="layout2" />
+    </bean>
+
+    <bean name="button1" class="javax.swing.JButton">
+        <property name="text" value="button1" />
+    </bean>
+
+    <bean name="button2" class="javax.swing.JButton">
+        <property name="text" value="button1" />
     </bean>
 
     <bean name="jMenuBar" class="xui.component.XUIJMenuBar">
@@ -41,7 +55,7 @@
             </map>
         </property>
     </bean>
-    
+
     <bean name="menu1" class="xui.component.XUIJMenu">
         <property name="text" value="文件" />
         <property name="menuItem">

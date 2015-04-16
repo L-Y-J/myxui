@@ -4,7 +4,6 @@ import tinyioc.context.ApplicationContext;
 import tinyioc.context.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
-import java.awt.*;
 import java.lang.reflect.Method;
 
 /**
@@ -30,13 +29,7 @@ public class XUIJFrameTest1 {
 	public static void test1() throws Exception {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("xui_1.xml");
 		JFrame jframe2 = (JFrame) applicationContext.getBean("jframe2");
-		jframe2.add(new Button("1"));
-		jframe2.add(new Button("2"));
 		jframe2.setVisible(true);
-		print(jframe2.getJMenuBar());
-		print(jframe2.getJMenuBar().getMenuCount());
-		print(jframe2.getJMenuBar().getMenu(0));
-		print(jframe2.getJMenuBar().getMenu(0).getName());
 	}
 
 	public static void main(String[] args) throws Exception {
