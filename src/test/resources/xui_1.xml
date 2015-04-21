@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans">
 
+    <import resource="classpath*:xui_2.xml" />
+
     <bean name="layout1" class="java.awt.FlowLayout">
         <property name="hgap" value="30" />
         <property name="vgap" value="20" />

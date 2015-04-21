@@ -9,13 +9,12 @@ import java.lang.reflect.Method;
 /**
  * Created by yongjie on 15-4-3.
  */
-public class XUIJFrameTest1 {
+public class MainTest {
 
 	private static void print(Object... o) {
 		for (Object o1 : o) {
 			System.out.println(o1.toString());
 		}
-
 	}
 
 	public static void test() throws Exception {
@@ -28,7 +27,7 @@ public class XUIJFrameTest1 {
 
 	public static void test1() throws Exception {
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("xui_1.xml");
-		JFrame jframe2 = (JFrame) applicationContext.getBean("jframe2");
+		JFrame jframe2 = (JFrame) applicationContext.getBean("testframe");
 		jframe2.setVisible(true);
 	}
 

@@ -13,7 +13,10 @@ import tinyioc.beans.io.ResourceLoader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
@@ -36,13 +39,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		inputStream.close();
 	}
 
-	public void registerBeanDefinitions(Document doc) {
+	public void registerBeanDefinitions(Document doc) throws Exception {
 		Element root = doc.getDocumentElement();
 
 		parseBeanDefinitions(root);
 	}
 
-	protected void parseBeanDefinitions(Element root) {
+	protected void parseBeanDefinitions(Element root) throws Exception {
 		NodeList nl = root.getChildNodes();
 		for (int i = 0; i < nl.getLength(); i++) {
 			Node node = nl.item(i);
@@ -58,7 +61,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 *
 	 * @param ele bean节点
 	 */
-	protected void processBeanDefinition(Element ele) {
+	protected void processBeanDefinition(Element ele) throws Exception {
+		if (ele.getTagName().equals("import")){
+			String location = ele.getAttribute("resource");
+			loadBeanDefinitions(location);
+			return;
+		}
 		String name = ele.getAttribute("name");
 		String className = ele.getAttribute("class");
 		BeanDefinition beanDefinition = new BeanDefinition();
