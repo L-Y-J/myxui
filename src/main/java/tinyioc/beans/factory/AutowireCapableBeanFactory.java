@@ -65,6 +65,20 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 				value = value.toString().toCharArray()[0];
 			else if (fieldTypeName.equals("boolean") || fieldTypeName.equals("java.lang.Boolean"))
 				value = value.toString().toLowerCase().equals("true") ? true : false;
+			else if (fieldTypeName.equals("java.util.LinkedHashMap")){
+				castMapArgs((LinkedHashMap) value);
+			}
+			else if (fieldTypeName.equals("java.util.List")){
+				// TODO 需要测试field注入List是否成功
+				List list = (List)value;
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i) instanceof BeanReference){
+						Object obj = getBean(((BeanReference) list.get(i)).getName());
+						list.set(i, obj);
+					}
+				}
+				value = list;
+			}
 			try {
 				declaredField.set(bean, value);
 			} catch (IllegalArgumentException e) {
