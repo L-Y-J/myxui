@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans">
+
+    <import resource="layout.xml"/>
+    <import resource="classpath*:menu.xml"/>
+
+    <bean name="jframe2" class="xui.component.XUIJFrame">
+        <property name="title" value="测试"/>
+        <property name="location">
+            <list>
+                <value>200</value>
+                <value>200</value>
+            </list>
+        </property>
+        <property name="size">
+            <list>
+                <value>600</value>
+                <value>600</value>
+            </list>
+        </property>
+        <property name="defaultCloseOperation" value="3"/>
+        <property name="JMenuBar" ref="jMenuBar"/>
+    </bean>
+
+    <bean name="frameLayout" class="xui.manager.XUILayoutManager">
+        <property name="layout" ref="layout1"/>
+        <property name="father" ref="jframe2" />
+        <property name="child">
+            <map>
+                <entry key="WEST" value-ref="button1"></entry>
+                <entry key="CENTER" value-ref="panel"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="panel" class="javax.swing.JPanel">
+        <property name="layout" ref="layout2"/>
+    </bean>
+
+    <bean name="button1" class="javax.swing.JButton">
+        <property name="text" value="button1"/>
+    </bean>
+
+    <bean name="button2" class="javax.swing.JButton">
+        <property name="text" value="button1"/>
+    </bean>
+
+</beans>

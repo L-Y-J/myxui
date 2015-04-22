@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans">
+
+    <bean name="jMenuBar" class="xui.component.XUIJMenuBar">
+        <property name="jmenu">
+            <map>
+                <entry key="1" value-ref="menu1"/>
+                <entry key="2" value-ref="menu2"/>
+                <entry key="3" value-ref="menu3"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="menu1" class="xui.component.XUIJMenu">
+        <property name="text" value="文件"/>
+        <property name="menuItem">
+            <map>
+                <entry key="1" value-ref="item1"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="menu2" class="xui.component.XUIJMenu">
+        <property name="text" value="编辑"/>
+    </bean>
+    <bean name="menu3" class="xui.component.XUIJMenu">
+        <property name="text" value="视图"/>
+    </bean>
+
+    <bean name="item1" class="javax.swing.JMenuItem">
+        <property name="text" value="打开"/>
+    </bean>
+</beans>
