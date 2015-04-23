@@ -7,6 +7,7 @@ import org.w3c.dom.NodeList;
 import tinyioc.BeanReference;
 import tinyioc.beans.AbstractBeanDefinitionReader;
 import tinyioc.beans.BeanDefinition;
+import tinyioc.beans.ConstructorValue;
 import tinyioc.beans.PropertyValue;
 import tinyioc.beans.io.ResourceLoader;
 
@@ -82,6 +83,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * @param beanDefinition 保存节点信息
 	 */
 	private void processProperty(Element ele, BeanDefinition beanDefinition) {
+		NodeList constructorNodes = ele.getElementsByTagName("constructor-arg");
+		if (constructorNodes != null){
+			processConstructor(constructorNodes, beanDefinition);
+		}
 		NodeList propertyNode = ele.getElementsByTagName("property");
 		for (int i = 0; i < propertyNode.getLength(); i++) {
 			Node node = propertyNode.item(i);
@@ -96,8 +101,41 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 					BeanReference beanReference = new BeanReference(ref);
 					beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, beanReference));
 				} else
-					proccessPropertyChilds(propertyEle, beanDefinition);
+					processPropertyChild(propertyEle, beanDefinition);
 			}
+		}
+	}
+
+	private void processConstructor(NodeList constructorNodes, BeanDefinition beanDefinition) {
+		for (int i = 0; i < constructorNodes.getLength(); i++) {
+			Node constructorNode = constructorNodes.item(i);
+			if (constructorNode instanceof Element){
+				Element constructorEle = (Element) constructorNode;
+				String index = constructorEle.getAttribute("index");
+				String value = constructorEle.getAttribute("value");
+				String ref = constructorEle.getAttribute("ref");
+				String type = constructorEle.getAttribute("type");
+				beanDefinition.getConstructorArgs().add(new ConstructorValue(index, value, ref, type));
+			}
+		}
+		return;
+	}
+
+	private Object castArgValueType(String value, String type) {
+		switch (type){
+			case "java.lang.String":
+				return value;
+			case "int":
+			case "java.lang.Integer":
+				return Integer.parseInt(value);
+			case "float":
+			case "java.lang.Float":
+				return Float.parseFloat(value);
+			case "double":
+			case "java.lang.Double":
+				return Double.parseDouble(value);
+			default:
+				return null;
 		}
 	}
 
@@ -107,7 +145,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * @param element        property节点
 	 * @param beanDefinition 保存节点信息
 	 */
-	private void proccessPropertyChilds(Element element, BeanDefinition beanDefinition) {
+	private void processPropertyChild(Element element, BeanDefinition beanDefinition) {
 		NodeList nodeList = element.getChildNodes();         // 第一群孩子
 		String propertyName = element.getAttribute("name");
 		if (nodeList == null || nodeList.getLength() < 1)
@@ -154,7 +192,6 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 						}
 					}
 					beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(propertyName, list));
-
 				}
 			}
 		}

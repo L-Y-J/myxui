@@ -1,5 +1,8 @@
 package tinyioc.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * bean的内容及元数据，保存在BeanFactory中，包装bean的实体
  * 
@@ -12,6 +15,8 @@ public class BeanDefinition {
 	private Class beanClass;
 
 	private String beanClassName;
+
+	private List constructorArgs;
 
 	private PropertyValues propertyValues = new PropertyValues();
 
@@ -49,6 +54,12 @@ public class BeanDefinition {
 
 	public PropertyValues getPropertyValues() {
 		return propertyValues;
+	}
+
+	public List getConstructorArgs() {
+		if (constructorArgs == null)
+			constructorArgs = new ArrayList();
+		return constructorArgs;
 	}
 
 	public void setPropertyValues(PropertyValues propertyValues) {

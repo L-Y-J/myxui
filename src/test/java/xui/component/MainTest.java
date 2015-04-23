@@ -1,8 +1,8 @@
 package xui.component;
 
-import tinyioc.context.ApplicationContext;
+import tinyioc.context.AbstractApplicationContext;
 import tinyioc.context.ClassPathXmlApplicationContext;
-import xui.manager.XUILayoutManager;
+import xui.manager.XUIManagerUtils;
 
 import javax.swing.*;
 import java.lang.reflect.Method;
@@ -27,10 +27,9 @@ public class MainTest {
 
 
 	public static void test1() throws Exception {
-		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("frame.xml");
+		AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext("frame.xml");
 		JFrame jframe2 = (JFrame) applicationContext.getBean("jframe2");
-		XUILayoutManager xuiLayoutManager = (XUILayoutManager) applicationContext.getBean("frameLayout");
-		xuiLayoutManager.BuildLayout();
+		XUIManagerUtils.BuildLayoutByManager(applicationContext);
 		jframe2.setVisible(true);
 	}
 

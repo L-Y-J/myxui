@@ -4,8 +4,8 @@
     <import resource="layout.xml"/>
     <import resource="classpath*:menu.xml"/>
 
-    <bean name="jframe2" class="xui.component.XUIJFrame">
-        <property name="title" value="测试"/>
+    <bean name="jframe2" class="javax.swing.JFrame">
+        <constructor-arg index="1" value="我的构造测试" type="java.lang.String"/>
         <property name="location">
             <list>
                 <value>200</value>
@@ -23,18 +23,18 @@
     </bean>
 
     <bean name="frameLayout" class="xui.manager.XUILayoutManager">
-        <property name="layout" ref="layout1"/>
+        <property name="layout" ref="borderLayout"/>
         <property name="father" ref="jframe2" />
         <property name="child">
             <map>
+                <entry key="NORTH" value-ref="jToolBar"></entry>
                 <entry key="WEST" value-ref="button1"></entry>
-                <entry key="CENTER" value-ref="panel"></entry>
+                <entry key="CENTER" value-ref="button2"></entry>
             </map>
         </property>
     </bean>
 
     <bean name="panel" class="javax.swing.JPanel">
-        <property name="layout" ref="layout2"/>
     </bean>
 
     <bean name="button1" class="javax.swing.JButton">

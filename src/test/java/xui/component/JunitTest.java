@@ -1,10 +1,14 @@
 package xui.component;
 
 import org.junit.Test;
+import tinyioc.beans.BeanDefinition;
+import tinyioc.context.ClassPathXmlApplicationContext;
 
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by yongjie on 15-4-3.
@@ -13,9 +17,18 @@ public class JunitTest {
 
 	@Test
 	public void test() throws Exception {
-		String test3 = "aaa";
-		String[] split = test3.split(":");
-		print(split.length, split[0]);
+		print("".equals(" ".trim()));
+	}
+
+	@Test
+	public void testBeanFactory() throws Exception {
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("frame.xml");
+		Map<String,BeanDefinition> map = context.getBeanFactory().getBeanDefinitionMap();
+		for (Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext(); ) {
+			String name = iterator.next();
+			BeanDefinition beanDefinition = map.get(name);
+			print(name, beanDefinition.getBeanClassName());
+		}
 	}
 
 	@Test

@@ -36,6 +36,10 @@ public class XUILayoutManager {
 				for (Object o : child.values()) {
 					jFrame.add((Component) o);
 				}
+			} else if (layout instanceof GridLayout){
+				for (Object o : child.values()) {
+					jFrame.add((Component) o);
+				}
 			}
 		}
 	}

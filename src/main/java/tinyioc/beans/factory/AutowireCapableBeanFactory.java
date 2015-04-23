@@ -2,6 +2,7 @@ package tinyioc.beans.factory;
 
 import tinyioc.BeanReference;
 import tinyioc.beans.BeanDefinition;
+import tinyioc.beans.ConstructorValue;
 import tinyioc.beans.PropertyValue;
 
 import java.lang.reflect.Field;
@@ -25,7 +26,46 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 	}
 
 	protected Object createBeanInstance(BeanDefinition beanDefinition) throws Exception {
+		List constructorArgs = beanDefinition.getConstructorArgs();
+		if (constructorArgs.size() > 0){
+			Class []parameterTypes = new Class[constructorArgs.size()];
+			Object []initargs = new Object[constructorArgs.size()];
+			for (int i = 0; i < constructorArgs.size(); i++) {
+				ConstructorValue constructorValue = (ConstructorValue) constructorArgs.get(i);
+				parameterTypes[i] = Class.forName(constructorValue.getType());
+				if (!"".equals(constructorValue.getValue().trim()))
+					initargs[i] = castConstructorArgs(constructorValue.getValue(), constructorValue.getType());
+				else{
+					initargs[i] = getBean(constructorValue.getRef());
+				}
+			}
+			return beanDefinition.getBeanClass().getConstructor(parameterTypes).newInstance(initargs);
+		}
 		return beanDefinition.getBeanClass().newInstance();
+	}
+
+	private Object castConstructorArgs(String value, String type) throws Exception {
+		switch (type){
+			case "java.lang.String":
+				return value;
+			case "int":
+			case "java.lang.Integer":
+				return Integer.parseInt(value);
+			case "long":
+			case "java.lang.Long":
+				return Long.parseLong(value);
+			case "float":
+			case "java.lang.Float":
+				return Float.parseFloat(value);
+			case "double":
+			case "java.lang.Double":
+				return Double.parseDouble(value);
+			case "boolean":
+			case "java.lang.Boolean":
+				return value.equals("true")?true:false;
+			default:
+				throw new Exception("不支持的构造参数类型:"+type);
+		}
 	}
 
 	/**

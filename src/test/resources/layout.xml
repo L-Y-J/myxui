@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans">
 
-    <bean name="layout1" class="java.awt.FlowLayout">
+    <bean name="flowLayout" class="java.awt.FlowLayout">
         <property name="hgap" value="30"/>
         <property name="vgap" value="20"/>
     </bean>
 
-    <bean name="layout2" class="java.awt.BorderLayout">
-        <property name="hgap" value="30"/>
-        <property name="vgap" value="20"/>
+    <bean name="borderLayout" class="java.awt.BorderLayout">
+        <property name="hgap" value="5"/>
+        <property name="vgap" value="5"/>
+    </bean>
+
+    <bean name="gridLayout" class="java.awt.GridLayout">
+        <property name="rows" value="1" />
+        <property name="columns" value="2" />
     </bean>
 </beans>

@@ -15,11 +15,7 @@ public class XUIJMenuBar extends JMenuBar {
 			LinkedHashMap linkedHashMap = (LinkedHashMap) menuList;
 			Collection values = linkedHashMap.values();
 			for (Object o : values) {
-				if (o instanceof JMenu){
-					super.add((JMenu) o);
-				}else {
-					System.out.println("错误类型："+o.toString());
-				}
+				super.add((JMenu) o);
 			}
 		}
 	}

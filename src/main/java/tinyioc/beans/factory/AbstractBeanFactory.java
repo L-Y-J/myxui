@@ -42,6 +42,10 @@ public abstract class AbstractBeanFactory implements BeanFactory {
 		}
 	}
 
+	public Map<String, BeanDefinition> getBeanDefinitionMap() {
+		return beanDefinitionMap;
+	}
+
 	/**
 	 * 初始化bean
 	 * 

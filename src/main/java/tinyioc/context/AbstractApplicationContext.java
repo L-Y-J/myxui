@@ -15,7 +15,11 @@ public abstract class AbstractApplicationContext implements ApplicationContext {
     public void refresh() throws Exception{
     }
 
-    public Object getBean(String name) throws Exception {
+	public AbstractBeanFactory getBeanFactory() {
+		return beanFactory;
+	}
+
+	public Object getBean(String name) throws Exception {
         return beanFactory.getBean(name);
     }
 }
