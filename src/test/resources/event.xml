@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans">
+
+    <!--不受检查的错误，注入的事件源必须能发出对应的事件-->
+    <bean name="actionListener" class="xui.listener.XUIActionListener">
+        <property name="source">
+            <map>
+                <entry key="1" value-ref="button1" />
+                <entry key="2" value-ref="button2" />
+                <entry key="3" value-ref="button3" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="keyListener" class="xui.listener.XUIKeyListener">
+        <property name="source">
+            <map>
+                <entry key="1" value-ref="textField" />
+                <entry key="2" value-ref="textArea" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="mouseListener" class="xui.listener.XUIMouseListener">
+        <property name="source">
+            <map>
+                <entry key="1" value-ref="textArea" />
+            </map>
+        </property>
+    </bean>
+
+    <bean name="mouseMotionListener" class="xui.listener.XUIMouseMotionListener">
+        <property name="source">
+            <map>
+                <entry key="1" value-ref="textArea" />
+            </map>
+        </property>
+    </bean>
+</beans>

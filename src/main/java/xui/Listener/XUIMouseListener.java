@@ -1,12 +1,16 @@
-package xui.Listener;
+package xui.listener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 /**
  * Created by yongjie on 15-4-22.
  */
-public class XUIMouseListener implements MouseListener {
+public class XUIMouseListener implements MouseListener, IListener {
 	/**
 	 * Invoked when the mouse button has been clicked (pressed
 	 * and released) on a component.
@@ -15,7 +19,7 @@ public class XUIMouseListener implements MouseListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
+		System.out.println("mouseClicked");
 	}
 
 	/**
@@ -25,7 +29,7 @@ public class XUIMouseListener implements MouseListener {
 	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		System.out.println("mousePressed");
 	}
 
 	/**
@@ -35,7 +39,7 @@ public class XUIMouseListener implements MouseListener {
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
+		System.out.println("mouseReleased");
 	}
 
 	/**
@@ -45,7 +49,7 @@ public class XUIMouseListener implements MouseListener {
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
+		System.out.println("mouseEntered");
 	}
 
 	/**
@@ -55,6 +59,15 @@ public class XUIMouseListener implements MouseListener {
 	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
+		System.out.println("mouseExited");
+	}
 
+	@Override
+	public void setSource(LinkedHashMap actionSources) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+		for (Iterator iterator = actionSources.values().iterator(); iterator.hasNext(); ) {
+			Object source = iterator.next();
+			Method addMouseListener = source.getClass().getMethod("addMouseListener", new Class[]{MouseListener.class});
+			addMouseListener.invoke(source, this);
+		}
 	}
 }

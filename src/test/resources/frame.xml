@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans">
 
+    <!--禁止循环引用, 资源路径支持classpath,filepath,http,默认为classpath-->
     <import resource="layout.xml"/>
     <import resource="classpath*:menu.xml"/>
 
@@ -29,7 +30,7 @@
             <map>
                 <entry key="NORTH" value-ref="jToolBar"></entry>
                 <entry key="WEST" value-ref="button1"></entry>
-                <entry key="CENTER" value-ref="button2"></entry>
+                <entry key="CENTER" value-ref="textArea"></entry>
             </map>
         </property>
     </bean>
@@ -44,5 +45,16 @@
     <bean name="button2" class="javax.swing.JButton">
         <property name="text" value="button2"/>
     </bean>
+
+    <bean name="textField" class="javax.swing.JTextField">
+        <property name="text" value="测试" />
+    </bean>
+
+    <bean name="textArea" class="java.awt.TextArea">
+        <property name="text" value="测试" />
+    </bean>
+
+    <!--默认在最后加载事件，保证能够找到事件源-->
+    <import resource="event.xml" />
 
 </beans>

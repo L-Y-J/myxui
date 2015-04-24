@@ -1,12 +1,16 @@
-package xui.Listener;
+package xui.listener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 /**
  * Created by yongjie on 15-4-22.
  */
-public class XUIMouseMotionListener implements MouseMotionListener{
+public class XUIMouseMotionListener implements MouseMotionListener, IListener {
 	/**
 	 * Invoked when a mouse button is pressed on a component and then
 	 * dragged.  <code>MOUSE_DRAGGED</code> events will continue to be
@@ -22,7 +26,7 @@ public class XUIMouseMotionListener implements MouseMotionListener{
 	 */
 	@Override
 	public void mouseDragged(MouseEvent e) {
-
+		System.out.println("mouseDragged");
 	}
 
 	/**
@@ -33,6 +37,15 @@ public class XUIMouseMotionListener implements MouseMotionListener{
 	 */
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		System.out.println("mouseMoved");
+	}
 
+	@Override
+	public void setSource(LinkedHashMap actionSources) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+		for (Iterator iterator = actionSources.values().iterator(); iterator.hasNext(); ) {
+			Object source = iterator.next();
+			Method addMouseMotionListener = source.getClass().getMethod("addMouseMotionListener", new Class[]{MouseMotionListener.class});
+			addMouseMotionListener.invoke(source, this);
+		}
 	}
 }

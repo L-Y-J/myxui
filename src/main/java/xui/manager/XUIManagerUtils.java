@@ -22,4 +22,11 @@ public class XUIManagerUtils {
 			}
 		}
 	}
+
+	public static final void InitEventListener(AbstractApplicationContext abstractApplicationContext) throws Exception {
+		abstractApplicationContext.getBean("actionListener");
+		abstractApplicationContext.getBean("keyListener");
+		abstractApplicationContext.getBean("mouseListener");
+		abstractApplicationContext.getBean("mouseMotionListener");
+	}
 }

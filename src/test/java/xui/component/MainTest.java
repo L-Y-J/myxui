@@ -30,6 +30,7 @@ public class MainTest {
 		AbstractApplicationContext applicationContext = new ClassPathXmlApplicationContext("frame.xml");
 		JFrame jframe2 = (JFrame) applicationContext.getBean("jframe2");
 		XUIManagerUtils.BuildLayoutByManager(applicationContext);
+		XUIManagerUtils.InitEventListener(applicationContext);
 		jframe2.setVisible(true);
 	}
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans">
 
+    <!--默认的添加方式，也可以通过配置对应的布局管理器添加-->
     <bean name="jMenuBar" class="xui.component.XUIJMenuBar">
         <property name="JMenu">
             <map>
@@ -43,7 +44,8 @@
         <constructor-arg index="0" ref="icon1" type="javax.swing.Icon" />
     </bean>
 
+    <!--资源的加载统一以URL标识，在classpath中进行查找-->
     <bean name="icon1" class="javax.swing.ImageIcon">
-        <constructor-arg index="0" value="java_16.png" type="java.net.URL" />
+        <constructor-arg index="0" value="images/java_16.png" type="java.net.URL" />
     </bean>
 </beans>
