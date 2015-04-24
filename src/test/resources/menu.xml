@@ -14,7 +14,7 @@
     <bean name="jToolBar" class="xui.component.XUIJToolBar">
         <property name="JToolBar">
             <map>
-                <entry key="1" value-ref="toolBarAction" />
+                <entry key="1" value-ref="button3" />
             </map>
         </property>
     </bean>
@@ -39,8 +39,11 @@
         <property name="text" value="打开"/>
     </bean>
 
-    <bean name="toolBarAction" class="xui.Listener.ToolBarAction">
-        <constructor-arg index="0" value="测试" type="java.lang.String"/>
-        <constructor-arg index="1" value="jaa.ico" type="java.lang.String"/>
+    <bean name="button3" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="icon1" type="javax.swing.Icon" />
+    </bean>
+
+    <bean name="icon1" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="java_16.png" type="java.net.URL" />
     </bean>
 </beans>

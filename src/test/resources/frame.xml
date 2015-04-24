@@ -42,7 +42,7 @@
     </bean>
 
     <bean name="button2" class="javax.swing.JButton">
-        <property name="text" value="button1"/>
+        <property name="text" value="button2"/>
     </bean>
 
 </beans>

@@ -63,6 +63,8 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 			case "boolean":
 			case "java.lang.Boolean":
 				return value.equals("true")?true:false;
+			case "java.net.URL":
+				return this.getClass().getClassLoader().getResource(value);
 			default:
 				throw new Exception("不支持的构造参数类型:"+type);
 		}

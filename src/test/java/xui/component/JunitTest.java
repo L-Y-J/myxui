@@ -17,7 +17,7 @@ public class JunitTest {
 
 	@Test
 	public void test() throws Exception {
-		print("".equals(" ".trim()));
+		print(System.getProperties());
 	}
 
 	@Test
