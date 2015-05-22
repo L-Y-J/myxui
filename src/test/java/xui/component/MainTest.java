@@ -31,6 +31,7 @@ public class MainTest {
 		JFrame jframe2 = (JFrame) applicationContext.getBean("jframe2");
 		XUIManagerUtils.BuildLayoutByManager(applicationContext);
 		XUIManagerUtils.InitEventListener(applicationContext);
+		XUIManagerUtils.DoSomething(applicationContext);
 		jframe2.setVisible(true);
 	}
 

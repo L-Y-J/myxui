@@ -4,6 +4,7 @@
     <!--禁止循环引用, 资源路径支持classpath,filepath,http,默认为classpath-->
     <import resource="layout.xml"/>
     <import resource="classpath*:menu.xml"/>
+    <import resource="tree.xml" />
 
     <bean name="jframe2" class="javax.swing.JFrame">
         <constructor-arg index="1" value="我的构造测试" type="java.lang.String"/>
@@ -29,7 +30,7 @@
         <property name="child">
             <map>
                 <entry key="NORTH" value-ref="jToolBar"></entry>
-                <entry key="WEST" value-ref="button1"></entry>
+                <entry key="WEST" value-ref="tree"></entry>
                 <entry key="CENTER" value-ref="textArea"></entry>
             </map>
         </property>
@@ -52,6 +53,11 @@
 
     <bean name="textArea" class="java.awt.TextArea">
         <property name="text" value="测试" />
+    </bean>
+
+    <bean name="htmlPanel" class="javax.swing.JEditorPane">
+        <property name="contentType" value="text/html" />
+        <property name="page" value="http://www.baidu.com" />
     </bean>
 
     <!--默认在最后加载事件，保证能够找到事件源-->

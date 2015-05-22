@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans">
+     <bean name="tree" class="javax.swing.JTree">
+        <constructor-arg index="0" ref="treeModel" type="javax.swing.tree.TreeNode" />
+    </bean>
+
+    <bean name="treeModel" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="Test" type="java.lang.Object" />
+        <property name="childrenNode">
+            <map>
+                <entry key="1" value-ref="node1"></entry>
+                <entry key="2" value-ref="node2"></entry>
+                <entry key="3" value-ref="node3"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="node1" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node1" type="java.lang.Object" />
+        <property name="childrenNode">
+            <map>
+                <entry key="1" value-ref="node4"></entry>
+                <entry key="2" value-ref="node5"></entry>
+                <entry key="3" value-ref="node6"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="node2" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node2" type="java.lang.Object" />
+        <property name="childrenNode">
+            <map>
+                <entry key="1" value-ref="node7"></entry>
+                <entry key="2" value-ref="node8"></entry>
+                <entry key="3" value-ref="node9"></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="node3" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node3" type="java.lang.Object" />
+        <property name="childrenNode">
+            <map>
+                <entry key="1" value-ref="node10"></entry>
+                <entry key="2" value-ref="node11"></entry>
+                <entry key="3" value-ref="node12"></entry>
+            </map>
+        </property>
+    </bean>
+    <bean name="node4" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node4" type="java.lang.Object" />
+    </bean>
+    <bean name="node5" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node5" type="java.lang.Object" />
+    </bean>
+    <bean name="node6" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node6" type="java.lang.Object" />
+    </bean>
+    <bean name="node7" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node7" type="java.lang.Object" />
+    </bean>
+    <bean name="node8" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node8" type="java.lang.Object" />
+    </bean>
+    <bean name="node9" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node9" type="java.lang.Object" />
+    </bean>
+    <bean name="node10" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node10" type="java.lang.Object" />
+    </bean>
+    <bean name="node11" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node11" type="java.lang.Object" />
+    </bean>
+    <bean name="node12" class="xui.component.XUITreeNode">
+        <constructor-arg index="0" value="node12" type="java.lang.Object" />
+    </bean>
+</beans>

@@ -11,6 +11,9 @@ import java.util.Map;
  */
 public class XUIManagerUtils {
 
+	private XUIManagerUtils() {
+	}
+
 	public static final void BuildLayoutByManager(AbstractApplicationContext applicationContext) throws Exception {
 		Map<String,BeanDefinition> map = applicationContext.getBeanFactory().getBeanDefinitionMap();
 		for (Iterator<String> iterator = map.keySet().iterator(); iterator.hasNext(); ) {
@@ -28,5 +31,8 @@ public class XUIManagerUtils {
 		abstractApplicationContext.getBean("keyListener");
 		abstractApplicationContext.getBean("mouseListener");
 		abstractApplicationContext.getBean("mouseMotionListener");
+	}
+
+	public static final void DoSomething(AbstractApplicationContext abstractApplicationContext) throws Exception {
 	}
 }

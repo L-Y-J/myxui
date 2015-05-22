@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
 public class XUILayoutManager {
 
 	private Component father;
-	LinkedHashMap child;
+	private LinkedHashMap child;
 	private LayoutManager layout;
 
 	public void BuildLayout() {

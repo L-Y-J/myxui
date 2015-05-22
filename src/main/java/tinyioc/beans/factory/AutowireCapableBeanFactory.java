@@ -29,17 +29,17 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 		List constructorArgs = beanDefinition.getConstructorArgs();
 		if (constructorArgs.size() > 0){
 			Class []parameterTypes = new Class[constructorArgs.size()];
-			Object []initargs = new Object[constructorArgs.size()];
+			Object []initArgs = new Object[constructorArgs.size()];
 			for (int i = 0; i < constructorArgs.size(); i++) {
 				ConstructorValue constructorValue = (ConstructorValue) constructorArgs.get(i);
 				parameterTypes[i] = Class.forName(constructorValue.getType());
 				if (!"".equals(constructorValue.getValue().trim()))
-					initargs[i] = castConstructorArgs(constructorValue.getValue(), constructorValue.getType());
+					initArgs[i] = castConstructorArgs(constructorValue.getValue(), constructorValue.getType());
 				else{
-					initargs[i] = getBean(constructorValue.getRef());
+					initArgs[i] = getBean(constructorValue.getRef());
 				}
 			}
-			return beanDefinition.getBeanClass().getConstructor(parameterTypes).newInstance(initargs);
+			return beanDefinition.getBeanClass().getConstructor(parameterTypes).newInstance(initArgs);
 		}
 		return beanDefinition.getBeanClass().newInstance();
 	}
@@ -48,6 +48,8 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 		switch (type){
 			case "java.lang.String":
 				return value;
+			case "java.lang.Object":
+				return value.toString();
 			case "int":
 			case "java.lang.Integer":
 				return Integer.parseInt(value);
