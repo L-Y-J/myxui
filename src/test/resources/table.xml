@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans">
+
+    <bean name="table" class="javax.swing.JTable">
+        <constructor-arg index="0" ref="tableModel" type="javax.swing.table.TableModel" />
+    </bean>
+
+    <bean name="tableModel" class="xui.component.XUITableModel">
+        <property name="tableData">
+            <map>
+                <entry key="" value="test" />
+            </map>
+        </property>
+    </bean>
+</beans>

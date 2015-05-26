@@ -15,7 +15,10 @@
     <bean name="jToolBar" class="xui.component.XUIJToolBar">
         <property name="JToolBar">
             <map>
-                <entry key="1" value-ref="button3" />
+                <entry key="0" value-ref="button3" />
+                <entry key="1" value-ref="button4" />
+                <entry key="2" value-ref="button5" />
+                <entry key="3" value-ref="button6" />
             </map>
         </property>
     </bean>
@@ -42,10 +45,45 @@
 
     <bean name="button3" class="javax.swing.JButton">
         <constructor-arg index="0" ref="icon1" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+        <property name="opaque" value="false" />
+    </bean>
+
+    <bean name="button4" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="icon2" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="button5" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="icon3" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="button6" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="icon4" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="dimension" class="java.awt.Dimension">
+        <constructor-arg index="0" value="16" type="java.lang.Integer" />
+        <constructor-arg index="1" value="16" type="java.lang.Integer" />
     </bean>
 
     <!--资源的加载统一以URL标识，在classpath中进行查找-->
     <bean name="icon1" class="javax.swing.ImageIcon">
         <constructor-arg index="0" value="images/java_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="icon2" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/test.jpg" type="java.net.URL" />
+    </bean>
+    <bean name="icon3" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/test1.jpg" type="java.net.URL" />
+    </bean>
+    <bean name="icon4" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/test2.jpg" type="java.net.URL" />
     </bean>
 </beans>

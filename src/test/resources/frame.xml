@@ -5,6 +5,7 @@
     <import resource="layout.xml"/>
     <import resource="classpath*:menu.xml"/>
     <import resource="tree.xml" />
+    <import resource="table.xml" />
 
     <bean name="jframe2" class="javax.swing.JFrame">
         <constructor-arg index="1" value="我的构造测试" type="java.lang.String"/>
@@ -31,7 +32,7 @@
             <map>
                 <entry key="NORTH" value-ref="jToolBar"></entry>
                 <entry key="WEST" value-ref="tree"></entry>
-                <entry key="CENTER" value-ref="textArea"></entry>
+                <entry key="CENTER" value-ref="table"></entry>
             </map>
         </property>
     </bean>

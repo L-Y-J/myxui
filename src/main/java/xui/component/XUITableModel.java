@@ -1,6 +1,7 @@
 package xui.component;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.LinkedHashMap;
 
 /**
  * Created by yongjie on 15-5-22.
@@ -18,7 +19,7 @@ public class XUITableModel extends AbstractTableModel {
 	 */
 	@Override
 	public int getRowCount() {
-		return 0;
+		return 33;
 	}
 
 	/**
@@ -31,7 +32,7 @@ public class XUITableModel extends AbstractTableModel {
 	 */
 	@Override
 	public int getColumnCount() {
-		return 0;
+		return 10;
 	}
 
 	/**
@@ -44,6 +45,9 @@ public class XUITableModel extends AbstractTableModel {
 	 */
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		return null;
+		return rowIndex*columnIndex;
+	}
+
+	public void setTableData(LinkedHashMap tableData){
 	}
 }
