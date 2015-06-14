@@ -32,7 +32,11 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 			Object []initArgs = new Object[constructorArgs.size()];
 			for (int i = 0; i < constructorArgs.size(); i++) {
 				ConstructorValue constructorValue = (ConstructorValue) constructorArgs.get(i);
-				parameterTypes[i] = Class.forName(constructorValue.getType());
+				// todo fix:添加更多的基础类型判断
+				if (constructorValue.getType().equals("int"))
+					parameterTypes[i] = int.class;
+				else
+					parameterTypes[i] = Class.forName(constructorValue.getType());
 				if (!"".equals(constructorValue.getValue().trim()))
 					initArgs[i] = castConstructorArgs(constructorValue.getValue(), constructorValue.getType());
 				else{
@@ -51,6 +55,7 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 			case "java.lang.Object":
 				return value.toString();
 			case "int":
+				return (int)Integer.parseInt(value);
 			case "java.lang.Integer":
 				return Integer.parseInt(value);
 			case "long":

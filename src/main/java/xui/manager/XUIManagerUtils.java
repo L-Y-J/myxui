@@ -3,6 +3,8 @@ package xui.manager;
 import tinyioc.beans.BeanDefinition;
 import tinyioc.context.AbstractApplicationContext;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -34,5 +36,8 @@ public class XUIManagerUtils {
 	}
 
 	public static final void DoSomething(AbstractApplicationContext abstractApplicationContext) throws Exception {
+		JFrame jframe2 = (JFrame) abstractApplicationContext.getBean("jframe2");
+		Image image = ((ImageIcon) abstractApplicationContext.getBean("education")).getImage();
+		jframe2.setIconImage(image);
 	}
 }

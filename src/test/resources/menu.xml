@@ -8,6 +8,14 @@
                 <entry key="1" value-ref="menu1"/>
                 <entry key="2" value-ref="menu2"/>
                 <entry key="3" value-ref="menu3"/>
+                <entry key="4" value-ref="menu4"/>
+                <entry key="5" value-ref="menu5"/>
+                <entry key="6" value-ref="menu6"/>
+                <entry key="7" value-ref="menu7"/>
+                <entry key="8" value-ref="menu8"/>
+                <entry key="9" value-ref="menu9"/>
+                <entry key="10" value-ref="menu10"/>
+                <entry key="11" value-ref="menu11"/>
             </map>
         </property>
     </bean>
@@ -19,6 +27,12 @@
                 <entry key="1" value-ref="button4" />
                 <entry key="2" value-ref="button5" />
                 <entry key="3" value-ref="button6" />
+                <entry key="4" value-ref="button7" />
+                <entry key="5" value-ref="button8" />
+                <entry key="6" value-ref="button9" />
+                <entry key="7" value-ref="button10" />
+                <entry key="7" value-ref="button11" />
+                <entry key="7" value-ref="button12" />
             </map>
         </property>
     </bean>
@@ -31,12 +45,35 @@
             </map>
         </property>
     </bean>
-
     <bean name="menu2" class="xui.component.XUIJMenu">
         <property name="text" value="编辑"/>
     </bean>
     <bean name="menu3" class="xui.component.XUIJMenu">
         <property name="text" value="视图"/>
+    </bean>
+    <bean name="menu4" class="xui.component.XUIJMenu">
+        <property name="text" value="导航"/>
+    </bean>
+    <bean name="menu5" class="xui.component.XUIJMenu">
+        <property name="text" value="编码"/>
+    </bean>
+    <bean name="menu6" class="xui.component.XUIJMenu">
+        <property name="text" value="分析"/>
+    </bean>
+    <bean name="menu7" class="xui.component.XUIJMenu">
+        <property name="text" value="重构"/>
+    </bean>
+    <bean name="menu8" class="xui.component.XUIJMenu">
+        <property name="text" value="运行"/>
+    </bean>
+    <bean name="menu9" class="xui.component.XUIJMenu">
+        <property name="text" value="工具"/>
+    </bean>
+    <bean name="menu10" class="xui.component.XUIJMenu">
+        <property name="text" value="窗口"/>
+    </bean>
+    <bean name="menu11" class="xui.component.XUIJMenu">
+        <property name="text" value="帮助"/>
     </bean>
 
     <bean name="item1" class="javax.swing.JMenuItem">
@@ -44,46 +81,107 @@
     </bean>
 
     <bean name="button3" class="javax.swing.JButton">
-        <constructor-arg index="0" ref="icon1" type="javax.swing.Icon" />
+        <constructor-arg index="0" ref="window_add" type="javax.swing.Icon" />
         <property name="borderPainted" value="false" />
         <property name="contentAreaFilled" value="false" />
         <property name="opaque" value="false" />
     </bean>
 
     <bean name="button4" class="javax.swing.JButton">
-        <constructor-arg index="0" ref="icon2" type="javax.swing.Icon" />
+        <constructor-arg index="0" ref="window_edit" type="javax.swing.Icon" />
         <property name="borderPainted" value="false" />
         <property name="contentAreaFilled" value="false" />
+        <property name="preferredSize" ref="dimension" />
     </bean>
 
     <bean name="button5" class="javax.swing.JButton">
-        <constructor-arg index="0" ref="icon3" type="javax.swing.Icon" />
+        <constructor-arg index="0" ref="window_accept" type="javax.swing.Icon" />
         <property name="borderPainted" value="false" />
         <property name="contentAreaFilled" value="false" />
     </bean>
 
     <bean name="button6" class="javax.swing.JButton">
-        <constructor-arg index="0" ref="icon4" type="javax.swing.Icon" />
+        <constructor-arg index="0" ref="window_up" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="button7" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="window_down" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="button8" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="window_delete" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="button9" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="window_remove" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="button10" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="window_search" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="button11" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="rss_down" type="javax.swing.Icon" />
+        <property name="borderPainted" value="false" />
+        <property name="contentAreaFilled" value="false" />
+    </bean>
+
+    <bean name="button12" class="javax.swing.JButton">
+        <constructor-arg index="0" ref="comment_add" type="javax.swing.Icon" />
         <property name="borderPainted" value="false" />
         <property name="contentAreaFilled" value="false" />
     </bean>
 
     <bean name="dimension" class="java.awt.Dimension">
-        <constructor-arg index="0" value="16" type="java.lang.Integer" />
-        <constructor-arg index="1" value="16" type="java.lang.Integer" />
+        <constructor-arg index="0" value="16" type="int" />
+        <constructor-arg index="1" value="16" type="int" />
     </bean>
 
     <!--资源的加载统一以URL标识，在classpath中进行查找-->
-    <bean name="icon1" class="javax.swing.ImageIcon">
-        <constructor-arg index="0" value="images/java_16.png" type="java.net.URL" />
+    <bean name="java" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/java_24.png" type="java.net.URL" />
     </bean>
-    <bean name="icon2" class="javax.swing.ImageIcon">
-        <constructor-arg index="0" value="images/test.jpg" type="java.net.URL" />
+    <bean name="window_delete" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/window_delete_16.png" type="java.net.URL" />
     </bean>
-    <bean name="icon3" class="javax.swing.ImageIcon">
-        <constructor-arg index="0" value="images/test1.jpg" type="java.net.URL" />
+    <bean name="window_add" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/window_add_16.png" type="java.net.URL" />
     </bean>
-    <bean name="icon4" class="javax.swing.ImageIcon">
-        <constructor-arg index="0" value="images/test2.jpg" type="java.net.URL" />
+    <bean name="window_accept" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/window_accept_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="rss_down" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/rss_down_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="comment_add" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/comment_add_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="window_down" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/window_down_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="window_edit" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/window_edit_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="window_remove" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/window_remove_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="window_search" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/window_search_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="window_up" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/window_up_16.png" type="java.net.URL" />
+    </bean>
+    <bean name="education" class="javax.swing.ImageIcon">
+        <constructor-arg index="0" value="images/education_24.png" type="java.net.URL" />
     </bean>
 </beans>

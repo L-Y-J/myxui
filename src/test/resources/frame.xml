@@ -3,7 +3,7 @@
 
     <!--禁止循环引用, 资源路径支持classpath,filepath,http,默认为classpath-->
     <import resource="layout.xml"/>
-    <import resource="classpath*:menu.xml"/>
+    <import resource="menu.xml"/>
     <import resource="tree.xml" />
     <import resource="table.xml" />
 
@@ -18,7 +18,7 @@
         <property name="size">
             <list>
                 <value>600</value>
-                <value>600</value>
+                <value>400</value>
             </list>
         </property>
         <property name="defaultCloseOperation" value="3"/>
